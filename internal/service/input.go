@@ -35,7 +35,6 @@ func (i inputService) PlaceInput(encodedInput string) error {
 	}
 
 	filename := path.Join(i.config.InputPath, "fold_input.json")
-	logrus.Infof("placing fold input to %s", filename)
 
 	data, err := base64.StdEncoding.DecodeString(encodedInput)
 	if err != nil {
@@ -54,5 +53,6 @@ func (i inputService) PlaceInput(encodedInput string) error {
 	if err != nil {
 		return err
 	}
+	logrus.Infof("placed fold input to %s", filename)
 	return nil
 }
