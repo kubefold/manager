@@ -17,7 +17,7 @@ type services struct {
 func NewServices(config dto.Config) Services {
 	return &services{
 		inputService:        newInputService(config),
-		uploadService:       newUploadService(),
+		uploadService:       newUploadService(config),
 		notificationService: newNotificationService(),
 	}
 }

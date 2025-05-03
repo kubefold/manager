@@ -1,16 +1,18 @@
 package main
 
 import (
+	"os"
+
 	"github.com/kubefold/manager/internal/dto"
 	"github.com/kubefold/manager/internal/service"
 	"github.com/sirupsen/logrus"
-	"os"
 )
 
 func main() {
 	inputPath := os.Getenv("INPUT_PATH")
 	outputPath := os.Getenv("OUTPUT_PATH")
 	encodedInput := os.Getenv("ENCODED_INPUT")
+	bucket := os.Getenv("BUCKET")
 
 	if inputPath == "" {
 		logrus.Panicf("INPUT_PATH env var is required")
@@ -29,6 +31,15 @@ func main() {
 		err := services.Input().PlaceInput(encodedInput)
 		if err != nil {
 			logrus.Fatalf("unable to place input: %v", err)
+		}
+		return
+	}
+
+	if bucket != "" {
+		logrus.Infof("Uploading artifacts to bucket: %s", bucket)
+		err := services.Upload().UploadArtifacts(bucket)
+		if err != nil {
+			logrus.Fatalf("unable to upload artifacts: %v", err)
 		}
 		return
 	}
