@@ -4,10 +4,11 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
-	"github.com/kubefold/manager/internal/dto"
-	"github.com/sirupsen/logrus"
 	"os"
 	"path"
+
+	"github.com/kubefold/manager/internal/dto"
+	"github.com/sirupsen/logrus"
 )
 
 type InputService interface {
@@ -41,7 +42,7 @@ func (i inputService) PlaceInput(encodedInput string) error {
 		return err
 	}
 
-	logrus.Debugf("decoded input: %s", string(data))
+	logrus.Infof("decoded input: %s", string(data))
 
 	var payload interface{}
 	err = json.Unmarshal(data, &payload)
