@@ -8,6 +8,6 @@ RUN GOOS=linux go build -o /main ./cmd/main.go
 
 FROM alpine:3.19
 WORKDIR /app
-RUN apk --no-cache add ca-certificates
+RUN apk --no-cache add ca-certificates zstd wget
 COPY --from=build /main /main
 ENTRYPOINT ["/main"]
