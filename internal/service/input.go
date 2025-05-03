@@ -25,6 +25,15 @@ func newInputService(config dto.Config) InputService {
 }
 
 func (i inputService) PlaceInput(encodedInput string) error {
+	err := os.Mkdir(i.config.InputPath, 0750)
+	if err != nil && !os.IsExist(err) {
+		return err
+	}
+	err = os.Mkdir(i.config.OutputPath, 0750)
+	if err != nil && !os.IsExist(err) {
+		return err
+	}
+
 	filename := path.Join(i.config.InputPath, "fold_input.json")
 	logrus.Infof("placing fold input to %s", filename)
 
