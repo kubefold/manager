@@ -11,5 +11,5 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y ca-certificates zstd wget
 COPY --from=build /main /main
 RUN useradd -u 1001 -s /bin/bash manager
-USER manager
+USER 1001
 ENTRYPOINT ["/main"]
