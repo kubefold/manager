@@ -9,7 +9,5 @@ RUN GOOS=linux go build -o /main ./cmd/main.go
 FROM alpine:3.19
 WORKDIR /app
 RUN apk --no-cache add ca-certificates zstd wget
-RUN adduser -u 1001 -D manager
-USER 1001
 COPY --from=build /main /main
 ENTRYPOINT ["/main"]
