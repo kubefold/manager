@@ -7,9 +7,9 @@ COPY . .
 RUN GOOS=linux go build -o /main ./cmd/main.go
 
 FROM ubuntu
-WORKDIR /app
+WORKDIR /home/manager
 RUN apt-get update && apt-get install -y ca-certificates zstd wget
-COPY --from=build /main /main
+COPY --from=build /main /home/manager
 RUN useradd -u 1001 -s /bin/bash manager
 USER 1001
-ENTRYPOINT ["/main"]
+ENTRYPOINT ["/home/manager"]
