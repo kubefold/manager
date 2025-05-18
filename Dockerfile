@@ -6,10 +6,10 @@ RUN go mod download
 COPY . .
 RUN GOOS=linux go build -o /main ./cmd/main.go
 
-FROM alpine:3.19
+FROM ubuntu
 WORKDIR /app
-RUN apk --no-cache add ca-certificates zstd wget
+RUN apt-get update && apt-get install -y ca-certificates zstd wget
 COPY --from=build /main /main
-RUN useradd -u 1000 -s /bin/bash manager
+RUN useradd -u 1001 -s /bin/bash manager
 USER manager
 ENTRYPOINT ["/main"]
