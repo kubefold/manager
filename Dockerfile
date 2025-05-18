@@ -10,4 +10,6 @@ FROM alpine:3.19
 WORKDIR /app
 RUN apk --no-cache add ca-certificates zstd wget
 COPY --from=build /main /main
+RUN useradd -u 1000 -s /bin/bash manager
+USER manager
 ENTRYPOINT ["/main"]
